@@ -135,7 +135,10 @@ local function get_and_authorize_token(self)
     return false
   end
 
-  self.url = _github_token.endpoints.api .. "/chat/completions"
+  self.url = _github_token.endpoints.api:gsub("/+$", "") .. "/chat/completions"
+  _G.__cc_copilot_enterprise_url = self.url
+  log:debug("Copilot Enterprise API URL set to: %s", self.url)
+
   return true, _github_token
 end
 
